@@ -5,5 +5,4 @@ class CreateGroups < ActiveRecord::Migration[5.0]
       t.timestamps
     end
   end
-  has_many :users, through: :user_groups
 end
