@@ -26,12 +26,14 @@ Things you may want to cover:
 
 |Column|Type|Options|
 |------|----|-------|
-|name|text|---------|
-|user_id|integer|null: false,foreign_key: true|
-|group_id|integer|null: false,foreign_key: true|
+|name|text|null: false,foreign_key: true|
+|email|text|null: false,foreign_key: true|
+|password|string|null: false,foreign_key: true|
+|------|timestamps|-------|
 
 ### Association
 -   has_many :groups, through: :user_groups
+-   has_many :messages
 
 
 ## messagesテーブル
@@ -42,27 +44,34 @@ Things you may want to cover:
 |image|string|---------|
 |user_id|integer|null: false,foreign_key: true|
 |group_id|integer|null: false,foreign_key: true|
+|------|timestamps|null: false,foreign_key: true|
+
 
 ### Association
-- |----------|
+- belongs_to :user
+- belongs_to :group
 
 
 ## groupsテーブル
 
 |Column|Type|Options|
 |------|----|-------|
-|------|----|-------|
+|groupname|text|null: false,foreign_key: true|
+|member|text|null: false,foreign_key: true|
+|------|timestamps|-------|
 
 ### Association
 -  has_many :users, through: :user_groups
+-  has_many :messages
 
 
 ## user_groupsテーブル
 
 |Column|Type|Options|
 |------|----|-------|
-|user_id|integer|null: false,foreign_key: true|
 |group_id|integer|null: false,foreign_key: true|
+|user_id|integer|null: false,foreign_key: true|
+|------|timestamps|null: false,foreign_key: true|
 
 ### Association
 - belongs_to :user
