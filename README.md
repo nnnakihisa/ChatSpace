@@ -26,12 +26,13 @@ Things you may want to cover:
 
 |Column|Type|Options|
 |------|----|-------|
-|name|text|null: false,foreign_key: true|
-|email|text|null: false,foreign_key: true|
-|password|string|null: false,foreign_key: true|
-|------|timestamps|-------|
+|name|string|null: false, index: true|
+|email|text|null: false|
+|password|string|null: false|
+|------|timestamps|null: false|
 
 ### Association
+-   has_many :user_groups
 -   has_many :groups, through: :user_groups
 -   has_many :messages
 
@@ -42,10 +43,9 @@ Things you may want to cover:
 |------|----|-------|
 |body|text|---------|
 |image|string|---------|
-|user_id|integer|null: false,foreign_key: true|
-|group_id|integer|null: false,foreign_key: true|
-|------|timestamps|null: false,foreign_key: true|
-
+|user|references|null: false,foreign_key: true|
+|group|references|null: false,foreign_key: true|
+|------|timestamps|null: false|
 
 ### Association
 - belongs_to :user
@@ -56,11 +56,11 @@ Things you may want to cover:
 
 |Column|Type|Options|
 |------|----|-------|
-|groupname|text|null: false,foreign_key: true|
-|member|text|null: false,foreign_key: true|
-|------|timestamps|-------|
+|name|string|null: false|
+|------|timestamps|null: false|
 
 ### Association
+-  has_many :user_groups
 -  has_many :users, through: :user_groups
 -  has_many :messages
 
@@ -69,9 +69,9 @@ Things you may want to cover:
 
 |Column|Type|Options|
 |------|----|-------|
-|group_id|integer|null: false,foreign_key: true|
-|user_id|integer|null: false,foreign_key: true|
-|------|timestamps|null: false,foreign_key: true|
+|group|references|null: false,foreign_key: true|
+|user|references|null: false,foreign_key: true|
+|------|timestamps|null: false|
 
 ### Association
 - belongs_to :user
