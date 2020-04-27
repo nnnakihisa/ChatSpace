@@ -1,0 +1,35 @@
+.chat-main
+  .chat-main__group__info
+    .chat-main__group__info__title
+      .chat-main__group__info__title__group-name
+        test
+      .chat-main__group__info__title__title-member
+        Member:
+    = link_to "#", class: "edit__btn" do
+      Edit
+  .chat-main__message-list
+    .chat-main__message-list__block
+      .chat-main__message-list__block__name-time
+        %p.name
+          namae
+        %p.time
+          2020/4/26(sun) 9:00:00
+      .chat-main__message-list__block__message-text
+        おはよう
+    .chat-main__message-list__block
+      .chat-main__message-list__block__name-time
+        %p.name
+          namae
+        %p.time
+          2020/4/26(sun) 21:00:00
+      .chat-main__message-list__block__message-text
+        こんばんは
+  .chat-main__message-form
+    .chat-main__message-form__block
+      .chat-main__message-form__block__textmessage
+        %input.message{:placeholder => "type a message", :type => "text"}/
+        %label{class: "message-form__image"}
+          = icon('fas', 'image')
+          %input{type: "file"}
+    = link_to "#", class: "sent__btn" do
+      Sent
