@@ -10,9 +10,17 @@
         = icon('fab', 'bitcoin')
   .side-bar__group-list
     - current_user.groups.each do |group|
-      = link_to '#', class: "side-bar__group-list__groups" do
+      = link_to group_messages_path(group), class: "side-bar__group-list__groups" do
         .side-bar__group-list__groups-name
           = group.name
         .side-bar__group-list__groups-message
-          まだメッセージがありません
+          = group.show_last_message
+
+  -# .side-bar__group-list
+  -#   - current_user.groups.each do |group|
+  -#     = link_to '#', class: "side-bar__group-list__groups" do
+  -#       .side-bar__group-list__groups-name
+  -#         = group.name
+  -#       .side-bar__group-list__groups-message
+  -#         まだメッセージがありません
 
