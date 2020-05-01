@@ -1,12 +1,19 @@
 .chat-main
+
+
   .chat-main__group__info
     .chat-main__group__info__title
       .chat-main__group__info__title__group-name
         = @group.name
       .chat-main__group__info__title__title-member
-        = "Member : #{ @group.user_ids }"
+        Member：
+        - @group.users.each do |user|
+          %p= user.name
+        -# = "Member : #{ @group.user_ids }"
     = link_to edit_group_path(params[:group_id]), class: "edit__btn" do
       Edit
+
+
   .chat-main__message-list
     = render @messages
 
