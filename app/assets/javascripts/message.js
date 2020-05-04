@@ -48,11 +48,9 @@ $('#new_message').on('submit', function(e){
       contentType: false
     })
      .done(function(data){
-       console.log(data)
        var html = buildHTML(data);
        $('.chat-main__message-list').append(html);
        $('.chat-main__message-list').animate({ scrollTop: $('.chat-main__message-list')[0].scrollHeight});
-      //  $('.sent__btn').prop('disabled', false);
        $('form')[0].reset();
        $('.sent__btn').prop('disabled', false);
      })
