@@ -1,40 +1,46 @@
 $(function(){
-      function buildHTML(message){
+  
+    function buildHTML(message){
       if ( message.image ) {
-        var html =
-        `<div class="chat-main__message-list__name-time">
-              <div class="name">
-                ${message.user_name}
+          var html =
+           `<div class="chat-main__message-lists__list" data-message-id=${message.id}>
+              <div class="chat-main__message-lists__list__name-time">
+                <div class="name">
+                  ${message.user_name}
+                </div>
+                <div class="time">
+                  ${message.created_at}
+                </div>
               </div>
-              <div class="time">
-                ${message.created_at}
+              <div class="chat-main__message-lists__list__message__text">
+                <p class="chat-main__message-lists__list__message__text__content">
+                  ${message.content}
+                </p>
               </div>
-            </div>
-            <div class="chat-main__message-list__message__text">
-              <p class="chat-main__message-list__message__text__content">
-                ${message.content}
-              </p>
-              <img class="chat-main__message-list__message__text__image" src=${message.image} >
-            </div>`
-        return html;
-      } else {
-        var html =
-        `<div class="chat-main__message-list__name-time">
-              <div class="name">
-                ${message.user_name}
+              <img class="chat-main__message-lists__list__message__text__image" src=${message.image} >
+           </div>`
+          return html;
+        } else {
+          var html =
+           `<div class="chat-main__message-lists__list" data-message-id=${message.id}>
+              <div class="chat-main__message-lists__list__name-time">
+                <div class="name">
+                  ${message.user_name}
+                </div>
+                <div class="time">
+                  ${message.created_at}
+                </div>
               </div>
-              <div class="time">
-                ${message.created_at}
+              <div class="chat-main__message-lists__list__message__text">
+                <p class="chat-main__message-lists__list__message__text__content">
+                  ${message.content}
+                </p>
               </div>
-            </div>
-            <div class="chat-main__message-list__message__text">
-              <p class="chat-main__message-list__message__text__content">
-                ${message.content}
-              </p>
-            </div>`
-        return html;
-      };
-    }
+           </div>`
+          return html;
+        };
+      }
+
 $('#new_message').on('submit', function(e){
     e.preventDefault();
     var formData = new FormData(this);
@@ -49,15 +55,41 @@ $('#new_message').on('submit', function(e){
     })
      .done(function(data){
        var html = buildHTML(data);
-       $('.chat-main__message-list').append(html);
-       $('.chat-main__message-list').animate({ scrollTop: $('.chat-main__message-list')[0].scrollHeight});
+       $('.chat-main__message-lists').append(html);
+       $('.chat-main__message-lists').animate({ scrollTop: $('.chat-main__message-lists')[0].scrollHeight});
        $('form')[0].reset();
        $('.sent__btn').prop('disabled', false);
      })
      .fail(function() {
-      alert("メッセージ送信に失敗しました");
+        alert("メッセージ送信に失敗しました");
   });
 })
+
+  var reloadMessages = function() {
+    var last_message_id = $('.chat-main__message-lists__list:last').data("message-id");
+    $.ajax({
+      url: "api/messages",
+      ttype: 'get',
+      dataType: 'json',
+      data: {id: last_message_id}
+    })
+    .done(function(messages) {
+      if (messages.length !== 0) {
+        var insertHTML = '';
+        $.each(messages, function(i, message) {
+          insertHTML += buildHTML(message)
+        });
+        $('.chat-main__message-lists').append(insertHTML);
+        $('.chat-main__message-lists').animate({ scrollTop: $('.chat-main__message-lists')[0].scrollHeight});
+      }
+    })
+    .fail(function() {
+      alert('error');
+    });
+  };
+  if (document.location.href.match(/\/groups\/\d+\/messages/)) {
+    setInterval(reloadMessages, 7000);
+  }
 });
 
 
