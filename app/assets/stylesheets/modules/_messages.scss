@@ -139,14 +139,14 @@
     height: 90px;
     display: flex;
     justify-content: space-between;
-    // padding: 0 40px;
+    padding: 20px 40px;
     line-height: center;
     .new_message{
       display: flex;
       justify-content: space-between;
       height: 50px;
-      width: calc(100% - 100px);
-      margin: 10px 40px;
+      width: calc(100vw - 100px);
+      // margin: 20px 40px;
       .chat-main__message-form__textmessage{
         height: 50px;
         background-color: #38aef0;
